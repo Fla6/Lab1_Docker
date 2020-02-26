@@ -71,25 +71,11 @@ do
     do
         File_size
     done
-
-    #File_size
-
-    #if test $? = 55
-    #then
-    #    File_size
-    #fi
     
     while [ "$Find_size" != 44 ]
     do
         Find_size
     done
-    
-    #Find_size
-
-    #if test "$?" = "44"
-    #then
-    #    Find_size
-    #fi
 
     echo "Удалить эти файлы? (y/n)"
     read yn
