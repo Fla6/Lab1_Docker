@@ -67,19 +67,29 @@ do
         esac
     fi
 
-    File_size
-
-    if test $? = 55
-    then
+    while [ "$File_size" != 55 ]
+    do
         File_size
-    fi
-    
-    Find_size
+    done
 
-    if test $? = 44
-    then
+    #File_size
+
+    #if test $? = 55
+    #then
+    #    File_size
+    #fi
+    
+    while [ "$Find_size" != 44 ]
+    do
         Find_size
-    fi
+    done
+    
+    #Find_size
+
+    #if test "$?" = "44"
+    #then
+    #    Find_size
+    #fi
 
     echo "Удалить эти файлы? (y/n)"
     read yn
