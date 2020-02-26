@@ -53,6 +53,7 @@ do
     read a
     if test -d "$a"
     then
+        cd $a
         echo -n "Текущий каталог: "
         pwd
     else 
@@ -67,12 +68,16 @@ do
         esac
     fi
 
-    while [ "$File_size" != 55 ]
+    File_size
+
+    while [ "$?" = 55 ]
     do
         File_size
     done
     
-    while [ "$Find_size" != 44 ]
+    Find_size
+
+    while [ "$?" = 44 ]
     do
         Find_size
     done
