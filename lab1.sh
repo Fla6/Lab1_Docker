@@ -70,14 +70,14 @@ do
 
     File_size
 
-    while [ "$?" = 55 ]
+    while [ "$?" -eq 55 ]
     do
         File_size
     done
     
     Find_size
 
-    while [ "$?" = 44 ]
+    while [ "$?" -eq 44 ]
     do
         Find_size
     done
@@ -88,6 +88,14 @@ do
         y|Y) find -size +1M -delete
             echo "Файлы в директории:" 
             ls
+            echo "Завершить программу? (y/n)"
+            read yn
+            case "$yn" in
+                y|Y) exit
+                ;;
+                n|N) continue
+                ;;
+            esac
         ;;
         n|N) echo "Завершить программу? (y/n)"
         read yn
