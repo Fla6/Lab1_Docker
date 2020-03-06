@@ -6,14 +6,14 @@ echo "Данный скрипт:"
 echo "- Запрашивает путь к каталогу"
 echo "- Запрашивает размер файла"
 echo "- Находит все файлы больше заданного размера и удаляет их"
-echo -e
 
 Find_directory () {
+    echo -e
     echo -n "Введите путь: "
-    read a
-    if test -d "$a"
+    read path
+    if test -d "$path"
     then
-        cd $a
+        cd $path
         echo -n "Текущий каталог: "
         pwd
     else 
@@ -30,6 +30,7 @@ Find_directory () {
 }
 
 File_size () {
+    echo -e
     echo -n "Введите файл, размер которого вы хотите узнать: "
     read FILENAME
     if test -f "$FILENAME"
@@ -50,24 +51,27 @@ File_size () {
 }
 
 Find_size () {
-    echo -n "Укажите файлы, размер которго хотите узнать: "
-    read a
-    find -size +"$a"M
-    echo "Хотите продолжить или выбрать другую директорию? (1/2)"
+    echo -e
+    echo -n "Укажите размер файлов, котрые вы хотите посмотреть (в М): "
+    read ssize
+    echo "Файлы размером больше "$ssize"M"
+    find -size +"$ssize"M
+    echo "Хотите продолжить или указать другой размер? (1/2)"
     read yn
     case "$yn" in
         1) Delete_file
         ;;
-        2) Find_directory
+        2) return 44
         ;;
     esac
 }
 
 Delete_file () {
+    echo -e
     echo "Удалить эти файлы? (y/n)"
     read yn
     case "$yn" in
-        y|Y) find -size +1M -delete
+        y|Y) find -size +"$ssize"M -delete
             echo "Файлы в директории:" 
             ls
             echo "Завершить программу? (y/n)"
@@ -103,6 +107,11 @@ do
     done
     
     Find_size
+
+    while [ "$?" -eq 44 ]
+    do
+        Find_size
+    done
 
     Delete_file
 done
